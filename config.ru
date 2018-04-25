@@ -2,4 +2,8 @@
 
 require_relative 'config/environment'
 
+use Rack::Config do |env|
+  env['api.tilt.root'] = "#{Rails.root}/app/views/api/"
+end
+
 run Rails.application

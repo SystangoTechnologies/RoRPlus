@@ -65,3 +65,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'hashie-forbidden_attributes'
 gem 'haml-rails'
+gem 'devise'
+gem 'grape'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-jbuilder'
+gem 'jwt'
