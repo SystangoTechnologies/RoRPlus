@@ -17,7 +17,9 @@ Step 2 - Rename it to your Project name
 Step 3 - Setup Api Environment
 --------------------
   generate authorization key by running following command
+
     Base64.strict_encode64("#{Rails.application.credentials.development[:api_client_id]}:#{Rails.application.credentials.development[:api_client_secret]}")
+
   You have to pass this Authorization key in every api call.
 
   User's login, signup and logout apis are already there. You can customize the fields as per your requirements.
@@ -25,8 +27,8 @@ Step 3 - Setup Api Environment
   In this Api environment we have used JWT authenication.
 
 
-
-This boilerplate consist following things configured in it:
+This boilerplate consist following things configured in it
+--------------------
   - Latter Opener: All your emails in development environment will get displayed in your browser instead of actually delivered to the email. This way you can check that all emails are getting sent properly.
   - HAML for html templates integration
   - Devise for users authentication
