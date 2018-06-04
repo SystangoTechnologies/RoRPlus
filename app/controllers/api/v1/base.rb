@@ -16,8 +16,7 @@ module API
       end
 
       version 'v1', using: :header, vendor: 'users'
-      format :json
-      formatter :json, Grape::Formatter::Jbuilder
+
       mount API::V1::Users
     end
   end

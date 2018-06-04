@@ -27,7 +27,7 @@ module API
           requires :email, type: String, desc: "Login "
           requires :password, type: String, desc: "Password"
         end
-        post :login, :jbuilder => "users/login.json.jbuilder" do
+        post :login do
           @current_user = User.find_by_email(params[:email].downcase)
           if @current_user&.valid_password?(params[:password])
             logout_from_existing_session(@current_user.id)
@@ -35,6 +35,8 @@ module API
           else
             @current_user = nil
           end
+          options[:access_token] = @access_token
+          {success: true, message: "Successfully logged in.", user: UserSerializer.new(@current_user, scope: options)}
         end
 
         desc "Signup user", {
