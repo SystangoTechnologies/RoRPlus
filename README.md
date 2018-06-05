@@ -14,7 +14,27 @@ Step 2 - Clone the Repository
 --------------------
     git clone https://github.com/SystangoTechnologies/RorPlus.git ror_plus
 
-Step 3 - Rename it to your Project name
+Step 3 - Setup credentials master key
+--------------------
+  Open this project and create a file in config folder with name 'master.key' and put 'e892b91452fe10406eb557b3d2e663cc' in it
+
+  As this master key is published here so we have to change this to another one. To do that we will create new rails application by running
+
+    rails new testing_app
+    cd testing_app
+    EDITOR="vi" bin/rails credentials:edit
+
+  Paste following credentials to it:
+
+    development:
+      base_url: 'http://localhost:3000'
+      api_client_id: 'ror_plus'
+      api_client_secret: 'HDFkfRorPlus645'
+      api_hmac_secret: 'HfgisL637'
+
+  Now you have another master.key and encrypted credentials. Copy them from this project and paste in our project and Done.
+
+Step 4 - Rename it to your Project name
 --------------------
   Initially your project name will be ror_plus
 
@@ -26,15 +46,9 @@ Step 3 - Rename it to your Project name
   b. Change directory by cd to newly created project in terminal
   c. Now run 'bundle install'
 
-Step 4 - Setup credentials master key
---------------------
-  Create a file in config folder with name 'master.key' and put 'e892b91452fe10406eb557b3d2e663cc' in it
-
-  As this master key is published here so we have to change this to another one.
-
 Step 5 - Setup Api Environment
 --------------------
-  generate authorization key by running following command
+  generate authorization key by running following command in rails console
 
     Base64.strict_encode64("#{Rails.application.credentials.development[:api_client_id]}:#{Rails.application.credentials.development[:api_client_secret]}")
 
