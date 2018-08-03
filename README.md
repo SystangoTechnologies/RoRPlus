@@ -32,7 +32,9 @@ Step 3 - Setup credentials master key
       api_client_secret: 'HDFkfRorPlus645'
       api_hmac_secret: 'HfgisL637'
 
-  Now you have another master.key and encrypted credentials. Copy them from this project and paste in our project and Done.
+  Save the changes.
+
+  Now you have another master.key and encrypted credentials in this testing_app repository. Copy them from this project and paste in our ror_plus project and Done.
 
 Step 4 - Rename it to your Project name
 --------------------
