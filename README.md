@@ -45,8 +45,13 @@ Step 4 - Rename it to your Project name
     rails g rename:into your_project_name
 
   a. This will create a project with 'your_project_name'. Open newly created project in editor and check database.yml and .ruby-version for correct database and gemset name
+
   b. Change directory by cd to newly created project in terminal
-  c. Now run 'bundle install'
+
+  c. Now run
+
+    gem install bundler
+    bundle install
 
 Step 5 - Setup Api Environment
 --------------------
