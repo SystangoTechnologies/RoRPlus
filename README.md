@@ -76,3 +76,11 @@ This boilerplate consist following things configured in it
   - Swagger for listing Api Doc and provides UI to call apis from there itself
   - GlobalConstants configuration
   - Bootstrap v4
+
+## Contributors
+
+  Pradeep Agrawal
+
+## License
+
+  This project is released under the [MIT License](https://opensource.org/licenses/MIT).
