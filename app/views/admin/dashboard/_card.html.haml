@@ -1,0 +1,13 @@
+.row
+  .col-xl-3.col-sm-6.mb-3
+    .card.text-white.bg-primary.o-hidden.h-100
+      .card-body
+        .card-body-icon
+          %i.fa.fa-fw.fa-user
+        .mr-5
+          = User.count
+          User
+      = link_to "javascript:void(0)", {class: "card-footer text-white clearfix small z-1"} do
+        %span.float-left View Details
+        %span.float-right
+          %i.fa.fa-angle-right

@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  admin:
+    navigation:
+      logout_title: "Ready to Leave?"
+      logout_message: "Select 'Logout' below if you are ready to end your current session."

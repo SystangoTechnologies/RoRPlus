@@ -1,0 +1,29 @@
+.container-fluid
+  / Breadcrumbs
+  %ol.breadcrumb
+    %li.breadcrumb-item
+      %a{:href => "#"} Admin
+    %li.breadcrumb-item.active My Dashboard
+  = render "card"
+  / Example DataTables Card
+  .card.mb-3
+    .card-header
+      %i.fa.fa-table
+      Active Users
+    .card-body
+      .table-responsive
+        %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+          %thead
+            %tr
+              %th First Name
+              %th Last Name
+              %th Email
+          %tbody
+            - @users.each do |user|
+              %tr
+                %td
+                  = user.first_name
+                %td
+                  = user.last_name
+                %td
+                  = user.email

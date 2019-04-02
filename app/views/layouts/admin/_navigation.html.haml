@@ -1,0 +1,35 @@
+%nav#mainNav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+  =link_to admin_dashboard_index_path, class: "navbar-brand" do
+    ="ADMIN PANEL"
+  %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarResponsive.collapse.navbar-collapse.d-flex.justify-content-end.flex-row
+    =link_to "Change Password", admin_admin_change_password_path(current_admin.id), class: 'btn btn-primary reset-password-nav'
+    %ul#exampleAccordion.navbar-nav.navbar-sidenav
+      %li.nav-item{"data-placement" => "right", "data-toggle" => "tooltip", :title => "Users", class:('active' if params[:controller] == "admin/sessions")}
+        =link_to "javascript:void(0)", {class: "nav-link"} do
+          %i.fa.fa-male
+          %span.nav-link-text Sessions
+      %li.nav-item{"data-placement" => "right", "data-toggle" => "tooltip", :title => "User", class:('active' if params[:controller] == "admin/users")}
+        %a.nav-link.nav-link-collapse.collapsed{"data-parent" => "#exampleAccordion", "data-toggle" => "collapse", :href => "#collapseComponents"}
+          %i.fa.fa-fw.fa-user
+          %span.nav-link-text Users
+        %ul#collapseComponents.sidenav-second-level.collapse{class:('show' if params[:controller] == "admin/users")}
+          %li{class:('active' if params[:controller] == "admin/users" && params[:type] == "male")}
+            =link_to "javascript:void(0)" do
+              %i.fa.fa-male
+              %span.nav-link-text Male
+          %li{class:('active' if params[:controller] == "admin/users" && params[:type] == "female")}
+            =link_to "javascript:void(0)" do
+              %i.fa.fa-female
+              %span.nav-link-text Female
+    %ul.navbar-nav.sidenav-toggler
+      %li.nav-item
+        %a#sidenavToggler.nav-link.text-center
+          %i.fa.fa-fw.fa-angle-left
+    %ul.navbar-nav
+      %li.nav-item
+        %a.nav-link{"data-target" => "#logoutModal", "data-toggle" => "modal"}
+          %i.fa.fa-fw.fa-sign-out>
+          Logout
+= render 'layouts/admin/logout_modal'

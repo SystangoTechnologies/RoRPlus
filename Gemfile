@@ -74,3 +74,5 @@ gem 'jwt'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.1.0'
 gem 'active_model_serializers'
+gem 'grape-active_model_serializers'
+gem "font-awesome-rails"

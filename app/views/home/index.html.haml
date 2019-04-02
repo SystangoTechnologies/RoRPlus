@@ -1,4 +1,2 @@
 - if current_user.blank?
-  = link_to 'Login', new_user_session_path, class: 'btn btn-success'
-- else
-  = link_to 'Logout', destroy_user_session_path, class: 'btn btn-danger', method: :delete
+  = link_to 'User Login', new_user_session_path, class: 'btn btn-success'
