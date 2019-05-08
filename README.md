@@ -1,5 +1,7 @@
-RorPlus
-=====================
+![Logo of RoRPlus](https://drive.google.com/uc?id=1SFJWuom-pW50M09LKKPfVGP9X-qqWDzM)
+
+## RorPlus
+
 A Ruby on Rails boilerplate which contains web and api creation environment for quick rails app creation.
 
 # Installation Steps
