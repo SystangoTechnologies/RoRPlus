@@ -3,6 +3,8 @@ module API
     class Users < API::V1::Base
       include API::V1::Defaults
 
+      AUTH_DESCRIPTION = "Authorization key".freeze
+
       helpers do
         def generate_access_token_for_user(user_id)
           @access_token = AccessToken.create(user_id: user_id)
@@ -18,7 +20,7 @@ module API
         desc "Login for user.", {
           headers: {
             "Authorization" => {
-              description: "Authorization key",
+              description: AUTH_DESCRIPTION,
               required: true
             }
           }
@@ -42,7 +44,7 @@ module API
         desc "Signup user", {
           headers: {
             "Authorization" => {
-              description: "Authorization key",
+              description: AUTH_DESCRIPTION,
               required: true
             }
           }
@@ -64,7 +66,7 @@ module API
         desc "Logout user", {
           headers: {
             "Authorization" => {
-              description: "Authorization key",
+              description: AUTH_DESCRIPTION,
               required: true
             }
           }

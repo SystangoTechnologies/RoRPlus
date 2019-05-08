@@ -1,7 +1,7 @@
 class Admin::DashboardController < Admin::BaseController
   before_action :authenticate_admin!
 
-  def index 
+  def index
     @users = User.all
   end
 end

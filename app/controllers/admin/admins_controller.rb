@@ -1,9 +1,7 @@
 class Admin::AdminsController <  Admin::BaseController
-
   before_action :set_admin
 
-  def change_password
-  end
+  def change_password; end
 
   def update_password
     if @admin.update_with_password(admin_params)

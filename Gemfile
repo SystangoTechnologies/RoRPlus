@@ -51,6 +51,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem "rename"
   gem "letter_opener"
+  gem 'rubocop'
+  gem 'rubocop-performance'
 end
 
 group :test do

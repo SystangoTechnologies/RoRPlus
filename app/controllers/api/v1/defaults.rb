@@ -9,7 +9,7 @@ module API
         helpers do
           def authenticate!
             begin
-              decoded_token = JWT.decode params[:user][:access_token], Rails.application.credentials.development[:api_hmac_secret], true, { :algorithm => 'HS256' }
+              JWT.decode params[:user][:access_token], Rails.application.credentials.development[:api_hmac_secret], true, { :algorithm => 'HS256' }
               @access_token = AccessToken.where(token: params[:user][:access_token]).first
               if @access_token.present?
                 @current_user = @access_token.user
