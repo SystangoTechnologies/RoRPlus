@@ -1,13 +1,13 @@
-#logoutModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :role => "dialog", :tabindex => "-1"}
-  .modal-dialog{:role => "document"}
+#logoutModal.modal.fade{'aria-hidden' => 'true', 'aria-labelledby' => 'exampleModalLabel', role: 'dialog', tabindex: '-1'}
+  .modal-dialog{:role => 'document'}
     .modal-content
       .modal-header
         %h5#exampleModalLabel.modal-title
           = I18n.t('admin.navigation.logout_title')
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} ×
+        %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button'}
+          %span{'aria-hidden' => 'true'} ×
       .modal-body
         = I18n.t('admin.navigation.logout_message')
       .modal-footer
-        %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Cancel
-        = link_to "Logout", destroy_admin_session_path ,{class: "btn btn-primary", method: "delete"}
+        %button.btn.btn-secondary{'data-dismiss' => 'modal', type: 'button'} Cancel
+        = link_to 'Logout', destroy_admin_session_path ,{class: 'btn btn-primary', method: 'delete'}

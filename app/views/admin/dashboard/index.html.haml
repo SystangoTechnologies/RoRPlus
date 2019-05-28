@@ -2,9 +2,9 @@
   / Breadcrumbs
   %ol.breadcrumb
     %li.breadcrumb-item
-      %a{:href => "#"} Admin
+      %a{href: '#'} Admin
     %li.breadcrumb-item.active My Dashboard
-  = render "card"
+  = render 'card'
   / Example DataTables Card
   .card.mb-3
     .card-header
@@ -12,7 +12,7 @@
       Active Users
     .card-body
       .table-responsive
-        %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %table#dataTable.table.table-bordered{:cellspacing => '0', :width => '100%'}
           %thead
             %tr
               %th First Name
