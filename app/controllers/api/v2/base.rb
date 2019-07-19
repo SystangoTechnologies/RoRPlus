@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module API
-  module V1
+  module V2
     class Base < API::Base
       formatter :json, Grape::Formatter::Jbuilder
       helpers API::V1::Helpers::AuthenticationHelpers
@@ -29,9 +29,9 @@ module API
         end
       end
 
-      version 'v1'
+      version 'v2'
 
-      mount API::V1::Users
+      mount API::V2::Users
     end
   end
 end

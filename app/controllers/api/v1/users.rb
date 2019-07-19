@@ -3,50 +3,13 @@
 module API
   module V1
     class Users < API::V1::Base
-      include API::V1::Defaults
-
-      AUTH_DESCRIPTION = 'Authorization key'.freeze
-
-      helpers do
-        def generate_access_token_for_user(user_id)
-          @access_token = AccessToken.create(user_id: user_id)
-        end
-
-        def logout_from_existing_session(user_id)
-          user = User.find(user_id)
-          user.access_tokens.destroy_all
-        end
-      end
+      include API::Defaults
 
       resource :users do
-        desc 'Login for user.', {
-          headers: {
-            'Authorization' => {
-              description: AUTH_DESCRIPTION,
-              required: true
-            }
-          }
-        }
-        params do
-          requires :email, type: String, desc: 'Login'
-          requires :password, type: String, desc: 'Password'
-        end
-        post :login do
-          @current_user = User.find_by_email(params[:email].downcase)
-          if @current_user&.valid_password?(params[:password])
-            logout_from_existing_session(@current_user.id)
-            generate_access_token_for_user(@current_user.id)
-          else
-            @current_user = nil
-          end
-          options[:access_token] = @access_token
-          { success: true, message: 'Successfully logged in.', user: UserSerializer.new(@current_user, scope: options) }
-        end
-
         desc 'Signup user', {
           headers: {
             'Authorization' => {
-              description: AUTH_DESCRIPTION,
+              description: Constant::AUTH_DESCRIPTION,
               required: true
             }
           }
@@ -60,29 +23,77 @@ module API
             requires :password_confirmation, type: String, desc: 'Password Confirmation'
           end
         end
-        post :sign_up, jbuilder: 'users/sign_up.json.jbuilder' do
-          @current_user = User.new(params[:user])
-          generate_access_token_for_user(@current_user.id) if @current_user.save
+        post do
+          user = User.new(params[:user])
+          if user.save
+            access_token = user.get_access_token
+            header 'AccessToken', "#{access_token.token}"
+            respond(201, {id: user.id})
+          else
+            respond_error(422, error_message(user))
+          end
         end
 
-        desc 'Logout user', {
+        desc "Login for user.", {
           headers: {
-            'Authorization' => {
-              description: AUTH_DESCRIPTION,
+            "Authorization" => {
+              description: Constant::AUTH_DESCRIPTION,
               required: true
             }
           }
         }
         params do
-          requires :user, type: Hash do
-            requires :access_token, type: String, desc: 'Access Token'
+          requires :user, type: Hash, desc: 'User object' do
+            requires :email, type: String, desc: "Login ", allow_blank: false
+            requires :password, type: String, desc: "Password", allow_blank: false
           end
         end
-        post :logout do
+        post :login do
+          user = User.find_by_email(params[:user][:email].downcase)
+          if user&.valid_password?(params[:user][:password])
+            access_token = user.get_access_token
+            header 'AccessToken', "#{access_token.token}"
+            respond(200)
+          else
+            respond_error(403, 'Invalid email or password.')
+          end
+        end
+
+        desc 'Get a user', {
+          headers: {
+            'Authorization' => {
+              description: Constant::AUTH_DESCRIPTION,
+              required: true
+            }
+          }
+        }
+        params do
+          use :authentication_params
+        end
+        get ":id" do
           authenticate!
-          token = AccessToken.where(user_id: @current_user.id, token: params[:user][:access_token]).first
-          token.destroy if token.present?
-          { success: true, message: 'Signed out successfully.' }
+          if @current_user.present?
+            respond(200, { user: UserSerializer.new(@current_user) })
+          else
+            respond_error(403)
+          end
+        end
+
+        desc "Logout user", {
+          headers: {
+            "Authorization" => {
+              description: Constant::AUTH_DESCRIPTION,
+              required: true
+            }
+          }
+        }
+        params do
+          use :authentication_params
+        end
+        delete :logout do
+          authenticate!
+          @access_token.destroy if @access_token.present?
+          respond(204)
         end
       end
     end

@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   root 'home#index'
 
   devise_for :users
-  mount API::Base => '/'
+
+  mount API::Base => '/api'
   mount GrapeSwaggerRails::Engine => '/swagger'
+
   resources :users , only: [:show]
+
   namespace :admin do
     resources :dashboard , only: [:index]
     resources :admins, only: [], path: '' do
@@ -13,5 +16,5 @@ Rails.application.routes.draw do
       patch :update_password
     end
   end
-  
+
 end

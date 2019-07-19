@@ -8,4 +8,13 @@ class User < ApplicationRecord
 
   # Associations
   has_many :access_tokens, dependent: :destroy
+
+  def generate_access_token
+    access_tokens.create
+  end
+
+  def get_access_token
+    self.access_tokens.destroy_all
+    self.generate_access_token
+  end
 end

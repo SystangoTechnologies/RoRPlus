@@ -60,7 +60,7 @@ Step 5 - Setup Api Environment
 --------------------
   generate authorization key by running following command in rails console
 
-    Base64.strict_encode64("#{Rails.application.credentials.development[:api_client_id]}:#{Rails.application.credentials.development[:api_client_secret]}")
+    Base64.strict_encode64("#{$secret[:api_client_id]}:#{$secret[:api_client_secret]}")
 
   You have to pass this Authorization key in every api call.
 
@@ -77,7 +77,7 @@ This boilerplate consist following things configured in it
   - API environment setup with Grape and Swagger to create APIs
   - JWT authentication for APIs
   - Swagger for listing Api Doc and provides UI to call apis from there itself
-  - GlobalConstants configuration
+  - Constants configuration
   - Bootstrap v4
 
 ## Contributors
