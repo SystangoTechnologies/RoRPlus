@@ -9,9 +9,9 @@ A Ruby on Rails boilerplate which contains web and api creation environment for 
 
 Step 1 - Install prerequisites
 --------------------
-  Install Ruby-2.5.1
+  Install Ruby-2.6.3
 
-    rvm install 2.5.1
+    rvm install 2.6.3
 
 Step 2 - Clone the Repository
 --------------------
