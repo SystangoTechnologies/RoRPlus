@@ -13,8 +13,8 @@ class User < ApplicationRecord
     access_tokens.create
   end
 
-  def get_access_token
-    self.access_tokens.destroy_all
-    self.generate_access_token
+  def new_access_token
+    access_tokens.destroy_all
+    generate_access_token
   end
 end

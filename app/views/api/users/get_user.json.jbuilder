@@ -1,1 +1,3 @@
-json.partial! 'users/details', user: @current_user
+# frozen_string_literal: true
+
+json.partial! 'users/details', user: @user

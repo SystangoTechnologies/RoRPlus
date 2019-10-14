@@ -6,14 +6,10 @@ module API
       include API::Defaults
 
       resource :users do
-        desc 'Signup user', {
-          headers: {
-            'Authorization' => {
-              description: Constant::AUTH_DESCRIPTION,
-              required: true
-            }
-          }
-        }
+        desc 'Create user',
+             headers: {
+               'Authorization' => { description: Constant::AUTH_DESCRIPTION, required: true }
+             }
         params do
           requires :user, type: Hash, desc: 'User object' do
             requires :first_name, type: String, desc: 'First Name'
@@ -26,67 +22,51 @@ module API
         post do
           user = User.new(params[:user])
           if user.save
-            access_token = user.get_access_token
-            header 'AccessToken', "#{access_token.token}"
-            respond(201, {id: user.id})
+            access_token = user.new_access_token
+            header 'AccessToken', access_token.token.to_s
+            respond(201, id: user.id)
           else
             respond_error(422, error_message(user))
           end
         end
 
-        desc "Login for user.", {
-          headers: {
-            "Authorization" => {
-              description: Constant::AUTH_DESCRIPTION,
-              required: true
-            }
-          }
-        }
+        desc 'Login for user',
+             headers: {
+               'Authorization' => { description: Constant::AUTH_DESCRIPTION, required: true }
+             }
         params do
           requires :user, type: Hash, desc: 'User object' do
-            requires :email, type: String, desc: "Login ", allow_blank: false
-            requires :password, type: String, desc: "Password", allow_blank: false
+            requires :email, type: String, desc: 'Email', allow_blank: false
+            requires :password, type: String, desc: 'Password', allow_blank: false
           end
         end
         post :login do
           user = User.find_by_email(params[:user][:email].downcase)
           if user&.valid_password?(params[:user][:password])
-            access_token = user.get_access_token
-            header 'AccessToken', "#{access_token.token}"
-            respond(200)
+            access_token = user.new_access_token
+            header 'AccessToken', access_token.token.to_s
+            respond(200, id: user.id)
           else
             respond_error(403, 'Invalid email or password.')
           end
         end
 
-        desc 'Get a user', {
-          headers: {
-            'Authorization' => {
-              description: Constant::AUTH_DESCRIPTION,
-              required: true
-            }
-          }
-        }
+        desc 'Get a user',
+             headers: {
+               'Authorization' => { description: Constant::AUTH_DESCRIPTION, required: true }
+             }
         params do
           use :authentication_params
         end
-        get ":id" do
+        get ':id', jbuilder: 'users/get_user.json.jbuilder' do
           authenticate!
-          if @current_user.present?
-            respond(200, { user: UserSerializer.new(@current_user) })
-          else
-            respond_error(403)
-          end
+          @user = User.find(params[:id])
         end
 
-        desc "Logout user", {
-          headers: {
-            "Authorization" => {
-              description: Constant::AUTH_DESCRIPTION,
-              required: true
-            }
-          }
-        }
+        desc 'Logout user',
+             headers: {
+               'Authorization' => { description: Constant::AUTH_DESCRIPTION, required: true }
+             }
         params do
           use :authentication_params
         end

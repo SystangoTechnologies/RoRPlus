@@ -6,11 +6,11 @@ module API
       formatter :json, Grape::Formatter::Jbuilder
       helpers API::V1::Helpers::AuthenticationHelpers
 
-      rescue_from ActiveRecord::RecordNotFound do |e|
+      rescue_from ActiveRecord::RecordNotFound do
         error!('Record not found.', 404)
       end
 
-      rescue_from ActiveRecord::InvalidForeignKey do |e|
+      rescue_from ActiveRecord::InvalidForeignKey do
         error!('Unprocessable entity.', 422)
       end
 
@@ -24,7 +24,7 @@ module API
 
       helpers do
         def authorized
-          authorization_key = Base64.strict_decode64(request.headers['Authorization']) rescue false
+          authorization_key = Base64.strict_decode64(request.headers['Authorization']) rescue nil
           authorization_key == "#{$secret[:api_client_id]}:#{$secret[:api_client_secret]}"
         end
       end
