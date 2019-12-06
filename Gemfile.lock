@@ -190,7 +190,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (3.12.2)
     rack (2.0.7)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -332,7 +332,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   pg
   pry
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.3)
   rename
   rubocop
