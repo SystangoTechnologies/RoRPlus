@@ -65,7 +65,7 @@ group :test do
   gem 'chromedriver-helper'
 end
 
-gem 'bootstrap', '~> 4.1.0'
+gem 'bootstrap'
 gem 'devise'
 gem 'fast_jsonapi'
 gem 'font-awesome-rails'
